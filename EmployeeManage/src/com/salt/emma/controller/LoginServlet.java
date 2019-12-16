@@ -32,6 +32,8 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
+		int result = 
+		
 		System.out.println("id :" + id);
 		System.out.println("pw :" + pw);
 				
