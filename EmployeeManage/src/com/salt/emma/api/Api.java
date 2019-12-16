@@ -11,9 +11,13 @@ import com.salt.emma.vo.MemberInfo;
 
 public class Api {
 	
-	//1: 로그인 성공, 2:아이디 없음, 3:비번 틀림
+	//1: 로그인 성공, 2:아이디 없음, 3:비번 틀림, 0:에러발생
 	public static int login(MemberInfo param) {
 		int result = 0;
+		
+		if(param == null) {
+			return result;
+		}
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -30,8 +34,18 @@ public class Api {
 			
 			if(rs.next()) {
 				String dbPw = rs.getString("pw");
+				
+				
 				if(param.getPw().equals(dbPw)) {
-					result = 1;					
+					result = 1;		
+					
+					int age = rs.getInt("age");
+					String name = rs.getString("name");
+					
+					param.setAge(age);
+					param.setName(name);					
+					param.setPw(null);
+					
 				}else {
 					result = 3;
 				}
