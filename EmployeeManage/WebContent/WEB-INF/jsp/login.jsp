@@ -26,11 +26,9 @@
 	</div>
 	
 	<script>
-	<% 
-		if(msg != null) { 
-			out.print("alert('"+ msg + "')");
-		} 
-	%>
+	<% if(msg != null) { %>
+				alert('<%=msg%>');
+	<% } %>
 	
 	/*
 		function chk() {			
