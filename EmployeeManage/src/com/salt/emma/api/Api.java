@@ -79,7 +79,13 @@ public class Api {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				int no = rs.getInt("no");
+				String hobby = rs.getString("hobby");
+				HobbyVO vo = new HobbyVO();
+				vo.setNo(no);
+				vo.setHobby(hobby);
 				
+				list.add(vo);
 			}
 			
 		} catch (Exception e) {		
