@@ -15,6 +15,9 @@ public class RegHobbyServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//DB에서 리스트 가져오기
+		
+		
 		request.setAttribute("title", "취미 등록");
 		request.setAttribute("page", "reghobby");
 		

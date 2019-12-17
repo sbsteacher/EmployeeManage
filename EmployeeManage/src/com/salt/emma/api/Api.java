@@ -1,12 +1,15 @@
 package com.salt.emma.api;
 
-import static com.salt.emma.api.DBCon.getCon;
 import static com.salt.emma.api.DBCon.close;
+import static com.salt.emma.api.DBCon.getCon;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.salt.emma.vo.HobbyVO;
 import com.salt.emma.vo.MemberInfo;
 
 public class Api {
@@ -58,10 +61,33 @@ public class Api {
 		} finally {
 			close(con, ps, rs);
 		}
-		
-	
-		
-		
 		return result;
+	}
+	
+	public static List<HobbyVO> getHobbyList() {
+		List<HobbyVO> list = new ArrayList();
+			
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT * FROM hobby ORDER BY no ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+			}
+			
+		} catch (Exception e) {		
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return list;
 	}
 }

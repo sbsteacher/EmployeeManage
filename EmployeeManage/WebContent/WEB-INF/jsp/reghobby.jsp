@@ -6,18 +6,18 @@
 		display: flex;		
 	}
 	
-	#left {
-		background-color: red;
+	#left {		
 		width: 200px;
 		height: 100%;
 	}
 	
-	#right {
-		background-color: blue;
+	#right {		
 		flex-grow: 1;
 	}
 </style>    
 <div id="container">
-	<div id="left">리스트</div>
+	<div id="left">
+		
+	</div>
 	<div id="right">등록폼</div>
 </div>

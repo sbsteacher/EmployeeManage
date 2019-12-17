@@ -8,7 +8,7 @@ html, body {
 }
 
 nav {
-	height: 100px;	
+	
 }
 
 ul {
@@ -44,4 +44,5 @@ li a:hover {
 
 section{
 	flex-grow:1;
+	padding: 15px;
 }
