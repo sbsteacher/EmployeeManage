@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 			hs.setAttribute("loginUser", param);
 			
 			//페이지 이동!!
-			
+			response.sendRedirect("main");
 		} else { //로그인 실패
 			
 		}				

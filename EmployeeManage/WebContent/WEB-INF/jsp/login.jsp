@@ -14,10 +14,10 @@
 	<div>
 		<form id="frm" action="login" method="post" onsubmit="return chk()">
 			<div>
-				아이디 : <input type="text" name="id">
+				아이디 : <input type="text" name="id" value="kiyoon">
 			</div>
 			<div>
-				비밀번호 : <input type="password" name="pw">
+				비밀번호 : <input type="password" name="pw" value="1212">
 			</div>
 			<div>
 				<input type="submit" value="로그인">
