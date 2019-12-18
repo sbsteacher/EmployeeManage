@@ -30,7 +30,7 @@
 			<div class="warning">${msg}</div>
 		</c:if>
 		<form id="frm" action="reghobby" method="post">
-			<input type="text" name="no">
+			<input type="hidden" name="no">
 			<div>취미: <input type="text" name="hobby"></div>
 			<div><input type="submit" value="등록"></div> 
 		</form>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.salt.emma.MyUtil;
 import com.salt.emma.api.Api;
 import com.salt.emma.vo.HobbyVO;
 
@@ -31,10 +32,11 @@ public class RegHobbyServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String no = request.getParameter("no");
-		String hobby = request.getParameter("hobby");
-		
-		if(!hobby.equals("")) { //등록
-			HobbyVO param = new HobbyVO();
+		String hobby = request.getParameter("hobby");		
+				
+		HobbyVO param = new HobbyVO();		
+		if(!"".equals(hobby)) { //등록
+			
 			param.setHobby(hobby);
 			
 			int result = Api.regHobby(param);
@@ -42,8 +44,17 @@ public class RegHobbyServlet extends HttpServlet {
 				request.setAttribute("msg", "취미를 등록할 때 오류가 발생하였습니다.");
 			}
 			
-		} else if(!no.equals("")) { //삭제
-			
+		} else if(!"".equals(no)) { //삭제
+			int intNo = MyUtil.parseStringToInt(no, 0);
+			if(intNo == 0) {
+				request.setAttribute("msg", "잘 못 된 접근입니다.");
+			} else {
+				param.setNo(intNo);
+				int result = Api.delHobby(param);
+				if(result != 1) {
+					request.setAttribute("msg", "삭제할 수 없습니다.");
+				}
+			}
 		}
 		
 		doGet(request, response);

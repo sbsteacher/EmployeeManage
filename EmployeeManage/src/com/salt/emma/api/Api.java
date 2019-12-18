@@ -123,8 +123,122 @@ public class Api {
 		return result;
 	}
 	
+	public static int delHobby(HobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " DELETE FROM hobby WHERE no = ? ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getNo());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
+	
+	public static List<MemberInfo> getMemberList() {		
+		List<MemberInfo> list = new ArrayList();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT * FROM member_info ORDER BY no ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				int age = rs.getInt("age");
+				String id = rs.getString("id");
+				
+				MemberInfo vo = new MemberInfo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setAge(age);
+				vo.setId(id);
+				
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {		
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return list;
+	}
 	
 	
+	//0: 에러, 1:등록완료
+	public static int regMember(MemberInfo param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " INSERT INTO member_info"
+				+ " (no, name, age, id, pw)"
+				+ " VALUES "
+				+ " (seq_member.nextval, ?, ?, ?, ?) ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getName());
+			ps.setInt(2, param.getAge());
+			ps.setString(3, param.getId());
+			ps.setString(4,  param.getPw());
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
+	
+	public static int delMember(MemberInfo param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " DELETE FROM member_info WHERE no = ? ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getNo());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
 }
 
 
