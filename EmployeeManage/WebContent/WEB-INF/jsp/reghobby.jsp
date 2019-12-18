@@ -19,19 +19,31 @@
 <div id="container">
 	<div id="left">
 		<c:forEach var="item" items="${hobbyList}">
-			<div>${item.no} - ${item.hobby}</div>
-		</c:forEach>
+			<div>
+				${item.no} - ${item.hobby} - 
+				<a href="#" onclick="clkDel(${item.no})">X</a>
+			</div>
+		</c:forEach>		
 	</div>
 	<div id="right">
 		<c:if test="${msg != null}">
 			<div class="warning">${msg}</div>
 		</c:if>
-		<form action="reghobby" method="post">
+		<form id="frm" action="reghobby" method="post">
+			<input type="text" name="no">
 			<div>취미: <input type="text" name="hobby"></div>
 			<div><input type="submit" value="등록"></div> 
 		</form>
 	</div>
 </div>
+<script>
+	function clkDel(no) {
+		console.log('no : ' + no)
+		frm.no.value = no
+		frm.hobby.value = ''
+		frm.submit()
+	}
+</script>
 
 
 
