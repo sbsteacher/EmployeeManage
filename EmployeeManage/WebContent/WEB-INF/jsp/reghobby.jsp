@@ -23,6 +23,19 @@
 		</c:forEach>
 	</div>
 	<div id="right">
-		
+		<c:if test="${msg != null}">
+			<div class="warning">${msg}</div>
+		</c:if>
+		<form action="reghobby" method="post">
+			<div>취미: <input type="text" name="hobby"></div>
+			<div><input type="submit" value="등록"></div> 
+		</form>
 	</div>
 </div>
+
+
+
+
+
+
+

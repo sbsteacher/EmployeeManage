@@ -96,4 +96,45 @@ public class Api {
 		
 		return list;
 	}
+	
+	public static int regHobby(HobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " INSERT INTO hobby "
+				+ " (no, hobby) "
+				+ " VALUES "
+				+ " (seq_hobby.nextval, ?) ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getHobby());
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

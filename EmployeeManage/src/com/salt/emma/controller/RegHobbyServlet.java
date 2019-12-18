@@ -17,10 +17,8 @@ import com.salt.emma.vo.HobbyVO;
 public class RegHobbyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//DB에서 리스트 가져오기
-	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		//DB에서 리스트 가져오기	
 		request.setAttribute("hobbyList",  Api.getHobbyList());
 		
 		request.setAttribute("title", "취미 등록");
@@ -32,7 +30,16 @@ public class RegHobbyServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		String hobby = request.getParameter("hobby");
+		
+		HobbyVO param = new HobbyVO();
+		param.setHobby(hobby);
+		
+		int result = Api.regHobby(param);
+		if(result != 1) {
+			request.setAttribute("msg", "취미를 등록할 때 오류가 발생하였습니다.");
+		}
+		doGet(request, response);
 	}
 
 }
