@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.salt.emma.vo.HobbyVO;
+import com.salt.emma.vo.MemberHobbyVO;
 import com.salt.emma.vo.MemberInfo;
 
 public class Api {
@@ -239,6 +240,76 @@ public class Api {
 		
 		return result;
 	}
+	
+	public static List<MemberHobbyVO> getMemberHobbyList() {
+		List<MemberHobbyVO> list = new ArrayList();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT A.member_no, A.hobby_no " + 
+				" , B.name, C.hobby " + 
+				" FROM member_hobby A " + 
+				" INNER JOIN member_info B " + 
+				" ON A.member_no = B.no " + 
+				" INNER JOIN hobby C " + 
+				" ON A.hobby_no = C.no" +
+				" ORDER BY A.member_no, A.hobby_no ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int member_no = rs.getInt("member_no");
+				int hobby_no = rs.getInt("hobby_no");
+				String name = rs.getString("name");
+				String hobby = rs.getString("hobby");
+				
+				MemberHobbyVO vo = new MemberHobbyVO();
+				vo.setMember_no(member_no);
+				vo.setHobby_no(hobby_no);
+				vo.setName(name);
+				vo.setHobby(hobby);
+				
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {		
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return list;
+	}
+	
+	public static int regdelMemberHobby(String sql, MemberHobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getMember_no());
+			ps.setInt(2, param.getHobby_no());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
+	
+
 }
 
 
