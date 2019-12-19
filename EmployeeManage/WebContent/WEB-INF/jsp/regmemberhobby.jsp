@@ -46,10 +46,10 @@
 			<input type="hidden" name="m_no">
 			<input type="hidden" name="h_no">					
 			멤버 : 
-			<select name="member_no">
+			<select name="member_no" onchange="changeMember(this.value)">
 				<option value="0">--선택--</option>
-				<c:forEach var="item" items="${memberList}">
-					<option value="${item.no }">${item.name}</option>
+				<c:forEach var="item" items="${memberList}">				
+					<option value="${item.no }" ${item.no == member_no ? 'selected' : ''}>${item.name}</option>
 				</c:forEach>
 			</select> 
 			취미 : 
@@ -66,6 +66,25 @@
 	</div>
 </div>
 <script>
+	function changeMember(val) {
+		console.log(val);
+		
+		var getForm = document.createElement('form')
+		getForm.method = 'get'
+		getForm.action = 'regmemberhobby'
+		
+		var field = document.createElement("input");
+		field.setAttribute('type', 'text')
+		field.setAttribute('name', 'member_no')
+		field.setAttribute('value', val)
+		
+		getForm.appendChild(field)
+		
+	  	document.body.appendChild(getForm);
+		getForm.submit()
+		
+	}
+	
 	function chk() {
 		if(frm.member_no.value == '0') {
 			alert('멤버를 선택해 주세요')			

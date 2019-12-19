@@ -65,18 +65,25 @@ public class Api {
 		return result;
 	}
 	
-	public static List<HobbyVO> getHobbyList() {
+	public static List<HobbyVO> getHobbyList(int member_no) {
 		List<HobbyVO> list = new ArrayList();
 			
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = " SELECT * FROM hobby ORDER BY no ";
+		String sql = " SELECT no, hobby FROM hobby"
+				+ " WHERE no not in ( "
+				+ " SELECT hobby_no FROM hobby A "
+				+ " INNER JOIN member_hobby B " + 
+				"    ON A.no = B.hobby_no " + 
+				"    AND B.member_no = ? " + 
+				"   ) ";
 		
 		try {
 			con = getCon();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, member_no);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {

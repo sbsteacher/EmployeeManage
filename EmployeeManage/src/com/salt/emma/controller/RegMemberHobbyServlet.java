@@ -19,9 +19,13 @@ public class RegMemberHobbyServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String member_no = request.getParameter("member_no");
+		System.out.println("member_no : " + member_no);
+		
+		request.setAttribute("member_no", member_no);
 		request.setAttribute("memberHobbyList", Api.getMemberHobbyList());
 		request.setAttribute("memberList", Api.getMemberList());
-		request.setAttribute("hobbyList", Api.getHobbyList());
+		request.setAttribute("hobbyList", Api.getHobbyList(MyUtil.parseStringToInt(member_no, 0)));
 		
 		request.setAttribute("title", "멤버 취미 등록");
 		request.setAttribute("page", "regmemberhobby");
